@@ -1,0 +1,20 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.dbarragan.comandafacil.app-mergeDebugResources-46:/values-hdpi-v4/values-hdpi-v4.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Diego_Barragan\\.gradle\\caches\\9.3.1\\transforms\\f017aa1b53f8e950e985c7537eb90bc7\\workspace\\transformed\\appcompat-1.6.1\\res\\values-hdpi-v4\\values-hdpi-v4.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "6",
+                        "endColumns": "13",
+                        "endOffsets": "327"
+                    }
+                }
+            ]
+        }
+    ]
+}

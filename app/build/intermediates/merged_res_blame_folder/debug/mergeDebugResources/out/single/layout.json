@@ -1,0 +1,46 @@
+[
+    {
+        "merged": "com.dbarragan.comandafacil.app-mergeDebugResources-47:/layout/activity_main.xml",
+        "source": "com.dbarragan.comandafacil.app-main-50:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.dbarragan.comandafacil.app-mergeDebugResources-47:/layout/fragment_ventas.xml",
+        "source": "com.dbarragan.comandafacil.app-main-50:/layout/fragment_ventas.xml"
+    },
+    {
+        "merged": "com.dbarragan.comandafacil.app-mergeDebugResources-47:/layout/item_producto.xml",
+        "source": "com.dbarragan.comandafacil.app-main-50:/layout/item_producto.xml"
+    },
+    {
+        "merged": "com.dbarragan.comandafacil.app-mergeDebugResources-47:/layout/item_historial.xml",
+        "source": "com.dbarragan.comandafacil.app-main-50:/layout/item_historial.xml"
+    },
+    {
+        "merged": "com.dbarragan.comandafacil.app-mergeDebugResources-47:/layout/fragment_productos.xml",
+        "source": "com.dbarragan.comandafacil.app-main-50:/layout/fragment_productos.xml"
+    },
+    {
+        "merged": "com.dbarragan.comandafacil.app-mergeDebugResources-47:/layout/fragment_cierre.xml",
+        "source": "com.dbarragan.comandafacil.app-main-50:/layout/fragment_cierre.xml"
+    },
+    {
+        "merged": "com.dbarragan.comandafacil.app-mergeDebugResources-47:/layout/dialog_agregar_producto.xml",
+        "source": "com.dbarragan.comandafacil.app-main-50:/layout/dialog_agregar_producto.xml"
+    },
+    {
+        "merged": "com.dbarragan.comandafacil.app-mergeDebugResources-47:/layout/activity_splash.xml",
+        "source": "com.dbarragan.comandafacil.app-main-50:/layout/activity_splash.xml"
+    },
+    {
+        "merged": "com.dbarragan.comandafacil.app-mergeDebugResources-47:/layout/fragment_dashboard.xml",
+        "source": "com.dbarragan.comandafacil.app-main-50:/layout/fragment_dashboard.xml"
+    },
+    {
+        "merged": "com.dbarragan.comandafacil.app-mergeDebugResources-47:/layout/item_venta.xml",
+        "source": "com.dbarragan.comandafacil.app-main-50:/layout/item_venta.xml"
+    },
+    {
+        "merged": "com.dbarragan.comandafacil.app-mergeDebugResources-47:/layout/dialog_gasto.xml",
+        "source": "com.dbarragan.comandafacil.app-main-50:/layout/dialog_gasto.xml"
+    }
+]
