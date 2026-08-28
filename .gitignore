@@ -1,0 +1,22 @@
+# Artefactos de compilación
+*.iml
+.gradle/
+/local.properties
+/build
+/app/build
+/captures
+.externalNativeBuild
+.cxx
+
+# Android Studio / IntelliJ
+.idea/
+*.hprof
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Firmas y claves (nunca deben versionarse)
+*.jks
+*.keystore
+keystore.properties

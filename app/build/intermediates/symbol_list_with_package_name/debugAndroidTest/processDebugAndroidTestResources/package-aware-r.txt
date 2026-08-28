@@ -1,3 +1,0 @@
-com.dbarragan.comandafacil.test
-style WhiteBackgroundDialogTheme
-style WhiteBackgroundTheme
