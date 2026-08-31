@@ -161,7 +161,8 @@ class VentasFragment : Fragment() {
 
             fun bind(d: DetalleVenta) {
                 tvNombre.text   = d.nombreProducto
-                tvCantidad.text = "x${d.cantidad.toInt()}"
+                tvCantidad.text = itemView.context.getString(
+                    R.string.cantidad_formato, d.cantidad.toInt())
                 tvTotal.text    = CurrencyFormatter.format(d.subtotalIngreso)
             }
         }

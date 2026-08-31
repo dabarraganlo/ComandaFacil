@@ -73,7 +73,11 @@
 
     <!-- Stock alert -->
     <string name="stock_bajo_alerta">Stock bajo</string>
-    <string name="stock_formato">Stock: %d (mín: %d)</string>
+    <!-- Con dos sustituciones hay que numerarlas, o el compilador de recursos advierte -->
+    <string name="stock_formato">Stock: %1$d (mín: %2$d)</string>
     <string name="stock_normal_formato">Stock: %d</string>
+
+    <!-- Ventas -->
+    <string name="cantidad_formato">x%d</string>
 
 </resources>

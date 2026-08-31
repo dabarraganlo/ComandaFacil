@@ -173,7 +173,14 @@ class ProductosFragment : Fragment() {
             fun bind(p: Producto) {
                 tvNombre.text = p.nombre
                 tvPrecio.text = CurrencyFormatter.format(p.precioSugerido)
-                tvStock.text  = "Stock: ${p.stockActual.toInt()}"
+                // Cuando hay alerta se muestra tambien el minimo, para que el
+                // usuario sepa cuanto le falta sin abrir el producto
+                tvStock.text = if (p.tieneStockBajo)
+                    itemView.context.getString(R.string.stock_formato,
+                        p.stockActual.toInt(), p.stockMinimo.toInt())
+                else
+                    itemView.context.getString(R.string.stock_normal_formato,
+                        p.stockActual.toInt())
                 ivAlerta.visibility = if (p.tieneStockBajo) View.VISIBLE else View.GONE
                 itemView.setOnClickListener { onClick(p) }
             }
