@@ -21,6 +21,10 @@ class VentasRepository(context: Context) {
      * 1. Inserta la venta y su detalle
      * 2. Descuenta el stock del producto
      * 3. Recalcula los totales de la jornada
+     *
+     * Los tres pasos van dentro de una misma transaccion: si alguno falla se
+     * revierte todo. De lo contrario el vendedor podria quedar con una venta
+     * guardada pero con el stock o los totales del dia sin actualizar.
      */
     fun registrar(jornadaId: Int, productoId: Int, cantidad: Double, precioVenta: Double) {
         val producto = productoDao.obtenerPorId(productoId)
@@ -35,14 +39,22 @@ class VentasRepository(context: Context) {
             costoUnitario  = producto.costoTotal
         )
 
-        ventaDao.insertarConDetalle(venta, listOf(detalle))
+        val dbW = db.writableDatabase
+        dbW.beginTransaction()
+        try {
+            ventaDao.insertarConDetalle(venta, listOf(detalle))
 
-        // Descontar stock
-        val nuevoStock = (producto.stockActual - cantidad).coerceAtLeast(0.0)
-        productoDao.actualizarStock(productoId, nuevoStock)
+            // Descontar stock
+            val nuevoStock = (producto.stockActual - cantidad).coerceAtLeast(0.0)
+            productoDao.actualizarStock(productoId, nuevoStock)
 
-        // Actualizar totales en la jornada
-        jornadaDao.recalcularTotales(jornadaId)
+            // Actualizar totales en la jornada
+            jornadaDao.recalcularTotales(jornadaId)
+
+            dbW.setTransactionSuccessful()
+        } finally {
+            dbW.endTransaction()
+        }
     }
 
     fun listarVentasDelDia(jornadaId: Int): List<DetalleVenta> =
