@@ -58,11 +58,18 @@ class VentasFragment : Fragment() {
             binding.spinnerProducto.onItemSelectedListener =
                 object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(p: AdapterView<*>?, v: View?, pos: Int, id: Long) {
-                        productoSeleccionado = lista[pos]
+                        productoSeleccionado = lista.getOrNull(pos)
                         actualizarPrecioSugerido()
                     }
-                    override fun onNothingSelected(p: AdapterView<*>?) {}
+                    override fun onNothingSelected(p: AdapterView<*>?) {
+                        productoSeleccionado = null
+                    }
                 }
+
+            // Si aún no hay productos, se orienta al usuario en lugar de dejarlo sin respuesta
+            binding.tvAyudaProducto.text =
+                if (lista.isEmpty()) getString(R.string.error_sin_productos)
+                else getString(R.string.ayuda_seleccionar_producto)
         }
 
         viewModel.ventasHoy.observe(viewLifecycleOwner) { ventas ->
@@ -90,7 +97,14 @@ class VentasFragment : Fragment() {
 
     private fun configurarCampos() {
         binding.btnRegistrarVenta.setOnClickListener {
-            val producto  = productoSeleccionado ?: return@setOnClickListener
+            val producto = productoSeleccionado
+            if (producto == null) {
+                // Sin este aviso el botón no respondía y el usuario quedaba sin saber por qué
+                val mensaje = if (viewModel.productos.value.isNullOrEmpty())
+                    R.string.error_sin_productos else R.string.error_seleccionar_producto
+                Toast.makeText(requireContext(), mensaje, Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
             val cantidad  = binding.etCantidad.text.toString().toDoubleOrNull() ?: 0.0
             val precio    = binding.etPrecioVenta.text.toString().toDoubleOrNull() ?: 0.0
 
