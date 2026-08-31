@@ -33,6 +33,7 @@
     <string name="error_cantidad">Ingresa una cantidad válida</string>
     <string name="error_precio">Ingresa un precio válido</string>
     <string name="error_seleccionar_producto">Selecciona un producto</string>
+    <string name="error_sin_productos">Primero registra un producto en la pestaña Productos</string>
     <string name="cantidad_hint">Cantidad vendida</string>
     <string name="precio_venta_hint">Precio de venta ($)</string>
 
@@ -45,6 +46,8 @@
     <string name="cancelar">Cancelar</string>
     <string name="error_nombre">El nombre es obligatorio</string>
     <string name="error_costo">Ingresa un costo válido</string>
+    <string name="error_margen">El porcentaje de ganancia debe ser menor a 100</string>
+    <string name="ayuda_margen">Si pones 100 o más, no se puede calcular el precio</string>
 
     <!-- Cierre -->
     <string name="confirmar_cierre">Confirmar cierre</string>
