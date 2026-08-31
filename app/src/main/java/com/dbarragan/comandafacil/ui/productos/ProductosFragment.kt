@@ -78,6 +78,13 @@ class ProductosFragment : Fragment() {
             val costoIng  = etCostoIng.text.toString().toDoubleOrNull() ?: 0.0
             val costoFijo = etCostoFijo.text.toString().toDoubleOrNull() ?: 0.0
             val margen    = etMargen.text.toString().toDoubleOrNull() ?: 0.0
+            if (margen >= 100.0) {
+                // Se avisa mientras escribe, sin esperar a que intente guardar
+                tvPrecioCalc.text = getString(R.string.ayuda_margen)
+                etMargen.error = getString(R.string.error_margen)
+                return
+            }
+            etMargen.error = null
             val temp = Producto("_temp", costoIng, costoFijo, margen)
             tvPrecioCalc.text = getString(R.string.precio_calculado,
                 CurrencyFormatter.format(temp.precioSugerido))
@@ -92,23 +99,44 @@ class ProductosFragment : Fragment() {
         val dialog = MaterialAlertDialogBuilder(requireContext())
             .setTitle(titulo)
             .setView(dialogView)
-            .setPositiveButton(R.string.guardar) { _, _ ->
+            // El listener se asigna despues de mostrar el dialogo para poder
+            // mantenerlo abierto cuando la validacion no pasa
+            .setPositiveButton(R.string.guardar, null)
+            .setNegativeButton(R.string.cancelar, null)
+            .create()
+
+        dialog.setOnShowListener {
+            dialog.getButton(android.app.AlertDialog.BUTTON_POSITIVE).setOnClickListener {
                 val nombre = etNombre.text.toString().trim()
-                if (nombre.isEmpty()) return@setPositiveButton
+                val margen = etMargen.text.toString().toDoubleOrNull() ?: 30.0
+
+                if (nombre.isEmpty()) {
+                    etNombre.error = getString(R.string.error_nombre)
+                    etNombre.requestFocus()
+                    return@setOnClickListener
+                }
+                // Un margen de 100 o mas anula el divisor de la formula de precio
+                if (margen >= 100.0 || margen < 0.0) {
+                    etMargen.error = getString(R.string.error_margen)
+                    etMargen.requestFocus()
+                    return@setOnClickListener
+                }
+
                 val producto = Producto(
                     id                   = productoExistente?.id ?: 0,
                     nombre               = nombre,
                     costoIngredientes    = etCostoIng.text.toString().toDoubleOrNull() ?: 0.0,
                     costoFijoProrrateado = etCostoFijo.text.toString().toDoubleOrNull() ?: 0.0,
-                    margenGanancia       = etMargen.text.toString().toDoubleOrNull() ?: 30.0,
+                    margenGanancia       = margen,
                     stockActual          = etStockActual.text.toString().toDoubleOrNull() ?: 0.0,
                     stockMinimo          = etStockMinimo.text.toString().toDoubleOrNull() ?: 0.0,
                     fechaCreacion        = productoExistente?.fechaCreacion ?: DateHelper.ahora()
                 )
                 viewModel.guardar(producto)
+                dialog.dismiss()
             }
-            .setNegativeButton(R.string.cancelar, null)
-            .show()
+        }
+        dialog.show()
         dialog.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         dialog.window?.setLayout(
             WindowManager.LayoutParams.MATCH_PARENT,
